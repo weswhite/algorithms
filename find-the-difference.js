@@ -5,11 +5,6 @@
  * @param {string} t
  * @return {character}
  */
-/**
- * @param {string} s
- * @param {string} t
- * @return {character}
- */
 var findTheDifference = function(s, t) {
     let sValues = s.split("")
     let tValues = t.split("")
