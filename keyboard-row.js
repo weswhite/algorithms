@@ -36,3 +36,59 @@ var findWords = function(words) {
         }
     })
 };
+
+//someone elses solution i thought was interesting 
+var findWords = function(words) {
+    let keyboardMap = {
+      'qwertyuiop': 0,
+      'asdfghjkl': 1,
+      'zxcvbnm': 2,
+    }
+  let output = []
+  for (let i = 0; i < words.length; i++)  {
+    let currentWord = words[i].split('')
+    let result = currentWord.reduce((acc, elem) => {
+      Object.keys(keyboardMap).forEach(key => {
+        let exists = key.indexOf(elem.toLowerCase()) > -1
+        if (exists) {
+          acc[key] = true
+        }
+      })
+      return acc
+    }, {})
+    if (Object.keys(result).length === 1) {
+      output.push(currentWord.join(''))
+    } 
+  }
+  return output
+};
+
+//also someone elses that used a Set because of the Set.has() 
+var findWords = function(words) {
+    // Define an array of Sets for each keyboard row.
+    const kbRows = [
+        new Set('qwertyuiop'.split('')),
+        new Set('asdfghjkl'.split('')),
+        new Set('zxcvbnm'.split(''))
+    ];
+    const ans = [];
+
+    const checkWord = (word, row) => {
+        // Ensure that each letter of the word is in the row we're given.
+        for (let i = 0; i < word.length; ++i) {
+            if (!row.has(word[i].toLowerCase())) {
+                return false;
+            }
+        }
+        ans.push(word);
+    };
+    
+    words.forEach((word) => {
+       // For each word check which row the first letter is in and send it to checking function.
+        kbRows.forEach((row) => {
+            if (row.has(word.charAt(0).toLowerCase())) checkWord(word, row); 
+        });
+    });
+    
+    return ans;
+};
