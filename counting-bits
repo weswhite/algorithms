@@ -1,0 +1,16 @@
+//https://leetcode.com/problems/counting-bits
+//not in O(n) time
+/**
+ * @param {number} num
+ * @return {number[]}
+ */
+var countBits = function(num) {
+    const result = []
+    for(i = 0; i <= num; i++){
+        console.log(i)
+        result.push(i.toString(2).split("").reduce((a, v) => {
+            return (v == 1) ? a + parseInt(v) : a
+        }, 0))
+    }
+    return result
+};
