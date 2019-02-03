@@ -4,19 +4,21 @@
  * @return {string[]}
  */
 var reorderLogFiles = function(logs) {
-    const hash = []
+    const num = []
+    const alpha = []
     for(i = 0; i < logs.length; i++){
         const arr = logs[i].split(' ')
-        //console.log(arr)
-        if(parseInt(arr[1])){
-            hash.push(arr.join(' '))
-            logs.splice(i, 1)
-        }
+        if(parseInt(arr[1]) || parseInt(arr[1]) == 0){
+            num.push(arr.join(' '))
+        } else {
+            alpha.push(logs[i])
+        }        
     }
-    //got bored and didnt want alphasort cause that is lame
-    //alpha sort here and then contiue on
-    for(i = 0; i < hash.length; i++){
-        logs.push(hash[i])
-    }
-    return logs
+    alpha.sort(function(a, b) {
+      let aWithoutId = a.substr(a.indexOf(' '), a.length);
+      let bWithoutId = b.substr(b.indexOf(' '), b.length);
+
+      return aWithoutId.localeCompare(bWithoutId);
+    })
+    return [...alpha, ...num]
 };
