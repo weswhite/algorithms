@@ -25,3 +25,22 @@ var findLHS = function(nums) {
     }
     return high
 };
+//faster bottom half that greatly increased performance
+var findLHS = function(nums) {
+    var hash = new Map()
+    for(i = 0; i < nums.length; i++){
+        if(hash.has(nums[i])){
+            hash.set(nums[i], hash.get(nums[i]) + 1)
+        } else {
+            hash.set(nums[i], 1)
+        }
+    }
+    var high = 0
+    for (var [key, value] of hash.entries()) {
+      if(hash.has(key + 1)){
+          var harmony = value + hash.get(key + 1)
+          if(harmony > high) high = harmony
+      }
+    }
+    return high
+};
