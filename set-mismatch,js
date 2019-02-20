@@ -1,0 +1,29 @@
+//https://leetcode.com/problems/set-mismatch
+//this was actually the hardest problem of my life
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var findErrorNums = function(nums) {
+    var sorted = nums.sort((a,b) => a - b)
+    var duplicate
+    var missing
+    var total = 0
+    var length = sorted.length 
+    while(length > 0){
+        total += length
+        length--
+    }
+    for(i = 1; i < sorted.length; i++){
+        if(sorted[i] === sorted[i - 1]){
+            duplicate = sorted[i]
+        }
+    } 
+    var index = sorted.indexOf(duplicate)
+    sorted.splice(index, 1)
+    var notMissing = 0
+    for(i = 0; i < sorted.length; i++){
+        notMissing += sorted[i]
+    }
+    return [duplicate, total - notMissing]
+};
